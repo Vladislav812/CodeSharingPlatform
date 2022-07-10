@@ -1,0 +1,28 @@
+[1;31m
+Start test 1[0m
+
+)  .   ____          _            __ _ _
+* /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
++( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+, \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
++  '  |____| .__|_| |_|_| |_\__, | / / / /
+* =========|_|==============|___/=/_/_/_/
+, :: Spring Boot ::                (v2.5.6)
+
+œ2022-07-10 19:17:41.291  INFO 11276 --- [    Test worker] platform.CodeSharingPlatform             : Starting CodeSharingPlatform using Java 17.0.3 on DESKTOP-E88IM81 with PID 11276 (started by Bolotin in D:\Java_projects_and_resources\CodeSharingPlatform\Code Sharing Platform\task)
+¦2022-07-10 19:17:41.293  INFO 11276 --- [    Test worker] platform.CodeSharingPlatform             : No active profile set, falling back to default profiles: default
+’2022-07-10 19:17:42.312  INFO 11276 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8889 (http)
+2022-07-10 19:17:42.323  INFO 11276 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+•2022-07-10 19:17:42.323  INFO 11276 --- [    Test worker] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.54]
+˜2022-07-10 19:17:42.402  INFO 11276 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+¥2022-07-10 19:17:42.402  INFO 11276 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1066 ms
+›2022-07-10 19:17:42.974  INFO 11276 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
+¡2022-07-10 19:17:43.010  INFO 11276 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8889 (http) with context path ''
+ª2022-07-10 19:17:43.022  INFO 11276 --- [    Test worker] platform.CodeSharingPlatform             : Started CodeSharingPlatform in 2.006 seconds (JVM running for 2.627)
+Ÿ2022-07-10 19:17:43.281  INFO 11276 --- [nio-8889-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+Ž2022-07-10 19:17:43.282  INFO 11276 --- [nio-8889-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+†2022-07-10 19:17:43.283  INFO 11276 --- [nio-8889-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[1;31m
+Start test 2[0m
+[1;31m
+Start test 3[0m
