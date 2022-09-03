@@ -420,6 +420,99 @@ files:
           }
       }
     learner_created: false
+  - name: src/resources/static/codeJSON.json
+    visible: true
+    text: |+
+      {
+          "code": "public static void main(String[] args) {\n    SpringApplication.run(CodeSharingPlatform.class, args);\n}"
+      }
+
+    learner_created: true
+  - name: src/platform/ActualDate.java
+    visible: true
+    text: |
+      package platform;
+      
+      import java.time.LocalDateTime;
+      import java.time.format.DateTimeFormatter;
+      
+      public class ActualDate {
+          private String actDate;
+      
+          ActualDate() {
+              String DATE_FORMATTER = "yyyy-MM-dd HH:mm:ss";
+              LocalDateTime ldt = LocalDateTime.now();
+              DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
+              this.actDate = ldt.format(formatter);
+          }
+      
+          public String getActDate() {
+              return actDate;
+          }
+      }
+    learner_created: true
+  - name: src/resources/static/submitNewCode.html
+    visible: true
+    text: |-
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <title>Create</title>
+      </head>
+      <body>
+      <textarea id="code_snippet">
+      </textarea>
+      <button id="send_snippet" type="submit" onclick="send()">Submit</button>
+      <script>
+          function send() {
+              let object = {
+                  "code": document.getElementById("code_snippet").value
+              };
+              let json = JSON.stringify(object);
+              let xhr = new XMLHttpRequest();
+              xhr.open("POST", '/api/code/new', false)
+              xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+              xhr.send(json);
+              if (xhr.status == 200) {
+                  alert("Success!");
+              }
+          }
+      </script>
+      </body>
+      </html>
+    learner_created: true
+  - name: src/resources/static/codeFile.html
+    visible: true
+    text: |+
+      <html>
+      <head>
+          <title>Code</title>
+      </head>
+      <body>
+      <pre style="background-color: lightgray; border: thin solid black; display: inline-block">
+      public static void main(String[] args) {
+          SpringApplication.run(CodeSharingPlatform.class, args);
+      }</pre>
+      <form action="http://localhost:8889/api/code/new" method="post">
+          <input type="text" name="code">
+          <button type="submit">Send</button>
+      </form>
+      
+      
+      </body>
+      </html>
+
+    learner_created: true
+  - name: src/resources/templates/New Text Document.ftl
+    visible: true
+    learner_created: true
+  - name: src/resources/templates/Latest.html
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/11029#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Sat, 03 Sep 2022 00:28:12 UTC
 record: -1

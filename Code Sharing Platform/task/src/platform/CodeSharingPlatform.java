@@ -2,13 +2,12 @@ package platform;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.HTML;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @SpringBootApplication
 @RestController
@@ -18,32 +17,69 @@ public class CodeSharingPlatform {
         SpringApplication.run(CodeSharingPlatform.class, args);
     }
 
-    static HashMap<String, String> codeText = new HashMap<>();
     static String s = "public static void main(String[] args) {\n    SpringApplication.run(CodeSharingPlatform.class, args);\n}";
+    static List<String> codeLib = new ArrayList<>();
+    static List<String> dateLib = new ArrayList<>();
 
-    @GetMapping("/api/code")
-    Map<String, String> returnJson() {
-        if (codeText.isEmpty()) {
-            codeText.put("code", s);
-            codeText.put("date", new ActualDate().getActDate());
+    @GetMapping("api/code/{num}")
+    HashMap<String, String> returnCode(@PathVariable int num) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        try {
+            String codeDate = dateLib.get(num - 1);
+            String codeTxt = codeLib.get(num - 1);
+            hashMap.put("date", codeDate);
+            hashMap.put("code", codeTxt);
+            return hashMap;
+        } catch (Exception IndexOutOfBounds) {
+            return hashMap;
         }
-        return codeText;
     }
 
-    @GetMapping("/code")
-    public String getHTMLCode() {
-        if (codeText.isEmpty()) {
-            return "<html>\n<head>\n    <title>Code</title>\n</head>\n<body>\n" +
-                    "<span style=\"color: green\" id=\"load_date\">" + new ActualDate().getActDate() + "</span>" + "<br>" +
+    @GetMapping("api/code/latest")
+    List<HashMap<String, String>> returnLatest() {
+        List<HashMap<String, String>> hashMapList = new ArrayList<>();
+        int lower = codeLib.size() >= 10 ? codeLib.size() - 10 : 0;
+        for (int i = codeLib.size() - 1; i >= lower; i--) {
+            HashMap<String, String> hashMap = new HashMap<>();
+            hashMap.put("code", codeLib.get(i));
+            hashMap.put("date", dateLib.get(i));
+            hashMapList.add(hashMap);
+        }
+        return hashMapList;
+    }
+
+    @GetMapping("code/latest")
+    public String returnLatestHTML() {
+        StringBuilder page = new StringBuilder();
+        int lower = codeLib.size() >= 10 ? codeLib.size() - 10 : 0;
+        for (int i = codeLib.size() - 1; i >= lower; i--) {
+            page.append("<html>\n<head>\n    <title>Latest</title>\n</head>\n<body>\n" +
+                    "<span style=\"color: green\" id=\"load_date\">" + dateLib.get(i) + "</span>" + "<br>" +
                     "    <pre style=\"background-color: lightgray; border: thin solid black; display: inline-block\"" +
-                    "id=\"code_snippet\">\n" + s +
+                    "id=\"code_snippet\">\n" + codeLib.get(i) +
+                    "</pre>\n" + "</body>\n</html>");
+            if (i >= 1) {
+                page.append("<br>");
+            }
+        }
+        return page.toString();
+    }
+
+
+    @GetMapping("/code/{num}")
+    public String getHTMLCode(@PathVariable int num) {
+        if (!codeLib.isEmpty()) {
+            return "<html>\n<head>\n    <title>Code</title>\n</head>\n<body>\n" +
+                    "<span style=\"color: green\" id=\"load_date\">" + dateLib.get(num - 1) + "</span>" + "<br>" +
+                    "    <pre style=\"background-color: lightgray; border: thin solid black; display: inline-block\"" +
+                    "id=\"code_snippet\">\n" + codeLib.get(num - 1) +
                     "</pre>\n" + "</body>\n</html>";
         } else {
-            System.out.println(codeText.get("code"));
+            //System.out.println(codeText.get("code"));
             return "<html>\n<head>\n    <title>Code</title>\n</head>\n<body>\n" +
                     "<span style=\"color: green\" id=\"load_date\">" + new ActualDate().getActDate() + "</span>" + "<br>" +
                     "    <pre style=\"background-color: lightgray; border: thin solid black; display: inline-block\"" +
-                    "id=\"code_snippet\">\n" + codeText.get("code") +
+                    "id=\"code_snippet\">\n" +
                     "</pre>\n" + "</body>\n</html>";
         }
 
@@ -51,11 +87,14 @@ public class CodeSharingPlatform {
     }
 
     @PostMapping("api/code/new")
-    public Map<String, String> returnNew(@RequestBody HashMap<String, String> inputForm) {
-        codeText.clear();
-        codeText.put("code", inputForm.get("code"));
-        codeText.put("date", new ActualDate().getActDate());
-        return new HashMap<>();
+    public HashMap<String, String> submitNewCode(@RequestBody HashMap<String, String> inputForm) {
+        String dt = new ActualDate().getActDate();
+        dateLib.add(dt);
+        codeLib.add(inputForm.get("code"));
+        HashMap<String, String> id = new HashMap<>();
+        String index = String.valueOf(dateLib.size());
+        id.put("id", index);
+        return id;
     }
 
     @GetMapping("code/new")

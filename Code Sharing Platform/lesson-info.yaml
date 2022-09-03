@@ -1,8 +1,8 @@
 type: framework
 content:
-- Show the code
-- POST updates
-- Snippets feed
-- Work with the database
-- Super secret snippets
-current_task: 1
+  - Show the code
+  - POST updates
+  - Snippets feed
+  - Work with the database
+  - Super secret snippets
+current_task: 2

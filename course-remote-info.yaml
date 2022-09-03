@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/405256/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: Sun, 10 Jul 2022 21:08:40 UTC
+update_date: Mon, 29 Aug 2022 23:16:43 UTC
 stages:
   - id: 692
     step: 11027
@@ -13,7 +13,7 @@ stages:
     is_completed: true
   - id: 694
     step: 11029
-    is_completed: false
+    is_completed: true
   - id: 695
     step: 11030
     is_completed: false
@@ -36,15 +36,9 @@ topics:
       theory_id: 6633
     - title: HyperText Transfer Protocol
       theory_id: 6569
-    - title: HTML basics
-      theory_id: 6434
     - title: HTTP URL
       theory_id: 6740
-    - title: Tags and Attributes
-      theory_id: 7536
-    - title: HTML page structure
-      theory_id: 6491
-    - title: Introduction to Spring boot
+    - title: Introduction to Spring Boot
       theory_id: 7944
     - title: Getting started with Spring Boot
       theory_id: 6336
@@ -150,10 +144,16 @@ topics:
       theory_id: 7917
     - title: Dependency management
       theory_id: 5076
-    - title: Web development
-      theory_id: 13931
     - title: External resources
       theory_id: 6216
+    - title: Web development
+      theory_id: 13931
+    - title: HTML basics
+      theory_id: 6434
+    - title: Tags and Attributes
+      theory_id: 7536
+    - title: HTML page structure
+      theory_id: 6491
     - title: Libraries
       theory_id: 8504
     - title: Frameworks
@@ -162,12 +162,12 @@ topics:
       theory_id: 3801
     - title: IDEA Basics
       theory_id: 5819
-    - title: JSON
-      theory_id: 6854
     - title: YAML
       theory_id: 12722
     - title: Introduction to software architecture
       theory_id: 15368
+    - title: JSON
+      theory_id: 6854
     - title: Reducing boilerplate code with Lombok
       theory_id: 13983
     - title: MVC
@@ -205,16 +205,22 @@ topics:
     - title: toString()
       theory_id: 3584
   1:
-    - title: Comments
-      theory_id: 8170
-    - title: Functions
-      theory_id: 8388
-    - title: Comments
-      theory_id: 7502
+    - title: Computer algorithms
+      theory_id: 16547
+    - title: The big O notation
+      theory_id: 16699
+    - title: Best, average and worst cases
+      theory_id: 20084
+    - title: Data structures
+      theory_id: 16927
+    - title: Immutability
+      theory_id: 7929
     - title: Block-level elements
       theory_id: 7271
     - title: Inline elements
       theory_id: 7518
+    - title: Comments
+      theory_id: 8170
     - title: What is CSS
       theory_id: 7678
     - title: Connecting CSS to HTML
@@ -225,7 +231,7 @@ topics:
       theory_id: 7730
     - title: HTML attributes id and class
       theory_id: 7527
-    - title: HTML forms
+    - title: Intro to HTML forms
       theory_id: 6560
     - title: Border
       theory_id: 8355
@@ -233,22 +239,68 @@ topics:
       theory_id: 13292
     - title: Handling requests with bodies
       theory_id: 13334
+    - title: Iterating over arrays
+      theory_id: 3602
+    - title: Errors in programs
+      theory_id: 3536
+    - title: What is an exception
+      theory_id: 3497
+    - title: NPE
+      theory_id: 1945
+    - title: Pseudocode
+      theory_id: 15090
+    - title: Pseudocode basics
+      theory_id: 19510
+    - title: Complex constructions in pseudocode
+      theory_id: 20922
+    - title: Fixed-size array
+      theory_id: 20078
+    - title: Dynamic array
+      theory_id: 5357
+    - title: Comments
+      theory_id: 7502
     - title: Introduction to JavaScript
       theory_id: 8016
     - title: Overview of the basic program
       theory_id: 8154
     - title: Multi-line programs
       theory_id: 8162
+    - title: Variables
+      theory_id: 8186
     - title: Strings and Numbers
       theory_id: 8194
     - title: Arithmetic operators
       theory_id: 8372
+    - title: Functions
+      theory_id: 8388
     - title: LocalTime
       theory_id: 3593
     - title: LocalDate
       theory_id: 3592
     - title: LocalDateTime
       theory_id: 3617
+    - title: Introduction to generic programming
+      theory_id: 3492
+    - title: Generics and Object
+      theory_id: 3493
+    - title: What are collections
+      theory_id: 3770
+    - title: The Collections Framework overview
+      theory_id: 3624
+    - title: ArrayList
+      theory_id: 3567
+    - title: The List interface
+      theory_id: 3581
+    - title: Instant
+      theory_id: 21233
+    - title: Polymorphism
+      theory_id: 3587
+    - title: Interface
+      theory_id: 3615
+    - title: Boxing and unboxing
+      theory_id: 3595
+    - title: Comparable
+      theory_id: 14456
   2:
     - title: Relative units
       theory_id: 10671
@@ -271,8 +323,6 @@ topics:
     - title: Interfaces
       theory_id: 9640
   3:
-    - title: Immutability
-      theory_id: 7929
     - title: H2 database
       theory_id: 8762
     - title: The concept of patterns
@@ -297,12 +347,6 @@ topics:
       theory_id: 13971
     - title: Relational databases with Spring Data
       theory_id: 18086
-    - title: Errors in programs
-      theory_id: 3536
-    - title: What is an exception
-      theory_id: 3497
-    - title: NPE
-      theory_id: 1945
     - title: Introduction to databases
       theory_id: 8497
     - title: What is SQL
@@ -319,27 +363,19 @@ topics:
       theory_id: 8312
     - title: Introduction to PostgreSQL
       theory_id: 17974
-    - title: Introduction to generic programming
-      theory_id: 3492
     - title: Lambda expressions
       theory_id: 11635
     - title: Method references
       theory_id: 3620
     - title: Functional interfaces
       theory_id: 11636
-    - title: Generic methods
-      theory_id: 3606
     - title: Standard functional interfaces
       theory_id: 3623
     - title: Optional
       theory_id: 9699
-    - title: Polymorphism
-      theory_id: 3587
-    - title: Interface
-      theory_id: 3615
+    - title: Generic methods
+      theory_id: 3606
     - title: Anonymous classes
       theory_id: 11896
     - title: Default methods
       theory_id: 11354
-    - title: Boxing and unboxing
-      theory_id: 3595
