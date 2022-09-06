@@ -17,12 +17,11 @@ public class CodeSharingPlatform {
         SpringApplication.run(CodeSharingPlatform.class, args);
     }
 
-    static String s = "public static void main(String[] args) {\n    SpringApplication.run(CodeSharingPlatform.class, args);\n}";
     static List<String> codeLib = new ArrayList<>();
     static List<String> dateLib = new ArrayList<>();
 
     @GetMapping("api/code/{num}")
-    HashMap<String, String> returnCode(@PathVariable int num) {
+    public static HashMap<String, String> returnCode(@PathVariable int num) {
         HashMap<String, String> hashMap = new HashMap<>();
         try {
             String codeDate = dateLib.get(num - 1);
@@ -35,11 +34,23 @@ public class CodeSharingPlatform {
         }
     }
 
+    @PostMapping("api/code/new")
+    public HashMap<String, String> submitNewCode(@RequestBody HashMap<String, String> inputForm) {
+        String dateTime = new ActualDate().getActDate();
+        dateLib.add(dateTime);
+        codeLib.add(inputForm.get("code"));
+        HashMap<String, String> newSnippet = new HashMap<>();
+        String index = String.valueOf(dateLib.size());
+        newSnippet.put("id", index);
+        return newSnippet;
+    }
+
     @GetMapping("api/code/latest")
-    List<HashMap<String, String>> returnLatest() {
+    public static List<HashMap<String, String>> returnLatest() {
         List<HashMap<String, String>> hashMapList = new ArrayList<>();
-        int lower = codeLib.size() >= 10 ? codeLib.size() - 10 : 0;
-        for (int i = codeLib.size() - 1; i >= lower; i--) {
+        int size = codeLib.size();
+        int lower = size >= 10 ? size - 10 : 0;
+        for (int i = size - 1; i >= lower; i--) {
             HashMap<String, String> hashMap = new HashMap<>();
             hashMap.put("code", codeLib.get(i));
             hashMap.put("date", dateLib.get(i));
@@ -48,84 +59,5 @@ public class CodeSharingPlatform {
         return hashMapList;
     }
 
-    @GetMapping("code/latest")
-    public String returnLatestHTML() {
-        StringBuilder page = new StringBuilder();
-        int lower = codeLib.size() >= 10 ? codeLib.size() - 10 : 0;
-        for (int i = codeLib.size() - 1; i >= lower; i--) {
-            page.append("<html>\n<head>\n    <title>Latest</title>\n</head>\n<body>\n" +
-                    "<span style=\"color: green\" id=\"load_date\">" + dateLib.get(i) + "</span>" + "<br>" +
-                    "    <pre style=\"background-color: lightgray; border: thin solid black; display: inline-block\"" +
-                    "id=\"code_snippet\">\n" + codeLib.get(i) +
-                    "</pre>\n" + "</body>\n</html>");
-            if (i >= 1) {
-                page.append("<br>");
-            }
-        }
-        return page.toString();
-    }
-
-
-    @GetMapping("/code/{num}")
-    public String getHTMLCode(@PathVariable int num) {
-        if (!codeLib.isEmpty()) {
-            return "<html>\n<head>\n    <title>Code</title>\n</head>\n<body>\n" +
-                    "<span style=\"color: green\" id=\"load_date\">" + dateLib.get(num - 1) + "</span>" + "<br>" +
-                    "    <pre style=\"background-color: lightgray; border: thin solid black; display: inline-block\"" +
-                    "id=\"code_snippet\">\n" + codeLib.get(num - 1) +
-                    "</pre>\n" + "</body>\n</html>";
-        } else {
-            //System.out.println(codeText.get("code"));
-            return "<html>\n<head>\n    <title>Code</title>\n</head>\n<body>\n" +
-                    "<span style=\"color: green\" id=\"load_date\">" + new ActualDate().getActDate() + "</span>" + "<br>" +
-                    "    <pre style=\"background-color: lightgray; border: thin solid black; display: inline-block\"" +
-                    "id=\"code_snippet\">\n" +
-                    "</pre>\n" + "</body>\n</html>";
-        }
-
-
-    }
-
-    @PostMapping("api/code/new")
-    public HashMap<String, String> submitNewCode(@RequestBody HashMap<String, String> inputForm) {
-        String dt = new ActualDate().getActDate();
-        dateLib.add(dt);
-        codeLib.add(inputForm.get("code"));
-        HashMap<String, String> id = new HashMap<>();
-        String index = String.valueOf(dateLib.size());
-        id.put("id", index);
-        return id;
-    }
-
-    @GetMapping("code/new")
-    public String returnSubmitForm() {
-        return "<!DOCTYPE html>\n" +
-                "<html lang=\"en\">\n" +
-                "<head>\n" +
-                "    <meta charset=\"UTF-8\">\n" +
-                "    <title>Create</title>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "<textarea id=\"code_snippet\">\n" +
-                "</textarea>\n" +
-                "<button id=\"send_snippet\" type=\"submit\" onclick=\"send()\">Submit</button>\n" +
-                "<script>\n" +
-                "    function send() {\n" +
-                "        let object = {\n" +
-                "            \"code\": document.getElementById(\"code_snippet\").value\n" +
-                "        };\n" +
-                "        let json = JSON.stringify(object);\n" +
-                "        let xhr = new XMLHttpRequest();\n" +
-                "        xhr.open(\"POST\", '/api/code/new', false)\n" +
-                "        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');\n" +
-                "        xhr.send(json);\n" +
-                "        if (xhr.status == 200) {\n" +
-                "            alert(\"Success!\");\n" +
-                "        }\n" +
-                "    }\n" +
-                "</script>\n" +
-                "</body>\n" +
-                "</html>";
-    }
 
 }
