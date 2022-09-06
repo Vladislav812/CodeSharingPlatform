@@ -1,0 +1,9 @@
+#load_date {
+    color: green
+}
+
+#code_snippet {
+    background-color: lightgray;
+    border: thin solid black;
+    display: inline-block
+}
