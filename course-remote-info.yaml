@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/405256/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: Mon, 29 Aug 2022 23:16:43 UTC
+update_date: Tue, 17 Jan 2023 19:15:07 UTC
 stages:
   - id: 692
     step: 11027
@@ -32,16 +32,26 @@ topics:
       theory_id: 10996
     - title: Introduction to Operating systems
       theory_id: 9704
+    - title: Computer algorithms
+      theory_id: 16547
+    - title: Immutability
+      theory_id: 7929
     - title: World Wide Web
       theory_id: 6633
     - title: HyperText Transfer Protocol
       theory_id: 6569
-    - title: HTTP URL
-      theory_id: 6740
+    - title: The big O notation
+      theory_id: 16699
+    - title: Best, average and worst cases
+      theory_id: 20084
+    - title: Data structures
+      theory_id: 16927
     - title: Introduction to Spring Boot
       theory_id: 7944
     - title: Getting started with Spring Boot
       theory_id: 6336
+    - title: HTTP URL
+      theory_id: 6740
     - title: Basic project structure
       theory_id: 6339
     - title: HTTP messages
@@ -118,12 +128,20 @@ topics:
       theory_id: 3511
     - title: Arrays as parameters
       theory_id: 3594
+    - title: Iterating over arrays
+      theory_id: 3602
     - title: Characters
       theory_id: 3514
     - title: String
       theory_id: 3523
     - title: Final variables
       theory_id: 7427
+    - title: Errors in programs
+      theory_id: 3536
+    - title: What is an exception
+      theory_id: 3497
+    - title: NPE
+      theory_id: 1945
     - title: Introduction to OOP
       theory_id: 3614
     - title: Package
@@ -144,20 +162,30 @@ topics:
       theory_id: 7917
     - title: Dependency management
       theory_id: 5076
-    - title: External resources
-      theory_id: 6216
+    - title: Pseudocode
+      theory_id: 15090
+    - title: Pseudocode basics
+      theory_id: 19510
+    - title: Complex constructions in pseudocode
+      theory_id: 20922
+    - title: Fixed-size array
+      theory_id: 20078
+    - title: Dynamic array
+      theory_id: 5357
     - title: Web development
       theory_id: 13931
+    - title: External resources
+      theory_id: 6216
     - title: HTML basics
       theory_id: 6434
-    - title: Tags and Attributes
-      theory_id: 7536
-    - title: HTML page structure
-      theory_id: 6491
     - title: Libraries
       theory_id: 8504
     - title: Frameworks
       theory_id: 6701
+    - title: Tags and Attributes
+      theory_id: 7536
+    - title: HTML page structure
+      theory_id: 6491
     - title: IntelliJ IDEA
       theory_id: 3801
     - title: IDEA Basics
@@ -168,8 +196,20 @@ topics:
       theory_id: 15368
     - title: JSON
       theory_id: 6854
-    - title: Reducing boilerplate code with Lombok
-      theory_id: 13983
+    - title: Jackson
+      theory_id: 21027
+    - title: Introduction to generic programming
+      theory_id: 3492
+    - title: Generics and Object
+      theory_id: 3493
+    - title: What are collections
+      theory_id: 3770
+    - title: The Collections Framework overview
+      theory_id: 3624
+    - title: ArrayList
+      theory_id: 3567
+    - title: The List interface
+      theory_id: 3581
     - title: MVC
       theory_id: 17197
     - title: Defining classes
@@ -202,25 +242,21 @@ topics:
       theory_id: 3622
     - title: Hiding and overriding
       theory_id: 3572
-    - title: toString()
-      theory_id: 3584
+    - title: Polymorphism
+      theory_id: 3587
+    - title: Interface
+      theory_id: 3615
+    - title: Boxing and unboxing
+      theory_id: 3595
   1:
-    - title: Computer algorithms
-      theory_id: 16547
-    - title: The big O notation
-      theory_id: 16699
-    - title: Best, average and worst cases
-      theory_id: 20084
-    - title: Data structures
-      theory_id: 16927
-    - title: Immutability
-      theory_id: 7929
+    - title: Interface elements
+      theory_id: 15253
+    - title: Comments
+      theory_id: 8170
     - title: Block-level elements
       theory_id: 7271
     - title: Inline elements
       theory_id: 7518
-    - title: Comments
-      theory_id: 8170
     - title: What is CSS
       theory_id: 7678
     - title: Connecting CSS to HTML
@@ -233,32 +269,14 @@ topics:
       theory_id: 7527
     - title: Intro to HTML forms
       theory_id: 6560
-    - title: Border
-      theory_id: 8355
     - title: Posting and deleting data via REST
       theory_id: 13292
     - title: Handling requests with bodies
       theory_id: 13334
-    - title: Iterating over arrays
-      theory_id: 3602
-    - title: Errors in programs
-      theory_id: 3536
-    - title: What is an exception
-      theory_id: 3497
-    - title: NPE
-      theory_id: 1945
-    - title: Pseudocode
-      theory_id: 15090
-    - title: Pseudocode basics
-      theory_id: 19510
-    - title: Complex constructions in pseudocode
-      theory_id: 20922
-    - title: Fixed-size array
-      theory_id: 20078
-    - title: Dynamic array
-      theory_id: 5357
-    - title: Comments
-      theory_id: 7502
+    - title: Hierarchy of exceptions
+      theory_id: 3570
+    - title: Exception handling
+      theory_id: 3552
     - title: Introduction to JavaScript
       theory_id: 8016
     - title: Overview of the basic program
@@ -273,32 +291,56 @@ topics:
       theory_id: 8372
     - title: Functions
       theory_id: 8388
-    - title: LocalTime
-      theory_id: 3593
+    - title: Comments
+      theory_id: 7502
+    - title: What is a bug
+      theory_id: 5504
+    - title: Synchronous, asynchronous, parallel
+      theory_id: 9332
+    - title: Processes and threads
+      theory_id: 9420
+    - title: Border
+      theory_id: 8355
+    - title: Introduction to logging
+      theory_id: 5538
+    - title: Debugging techniques
+      theory_id: 13775
     - title: LocalDate
       theory_id: 3592
+    - title: LocalTime
+      theory_id: 3593
     - title: LocalDateTime
       theory_id: 3617
-    - title: Introduction to generic programming
-      theory_id: 3492
-    - title: Generics and Object
-      theory_id: 3493
-    - title: What are collections
-      theory_id: 3770
-    - title: The Collections Framework overview
-      theory_id: 3624
-    - title: ArrayList
-      theory_id: 3567
-    - title: The List interface
-      theory_id: 3581
+    - title: Lambda expressions
+      theory_id: 11635
+    - title: The Set interface
+      theory_id: 3575
     - title: Instant
       theory_id: 21233
-    - title: Polymorphism
-      theory_id: 3587
-    - title: Interface
-      theory_id: 3615
-    - title: Boxing and unboxing
-      theory_id: 3595
+    - title: Threads as objects
+      theory_id: 4875
+    - title: Custom threads
+      theory_id: 4876
+    - title: Thread management
+      theory_id: 3619
+    - title: Exceptions in threads
+      theory_id: 4882
+    - title: Shared data
+      theory_id: 3610
+    - title: Thread synchronization
+      theory_id: 3557
+    - title: Collections and thread-safety
+      theory_id: 4984
+    - title: 'Hashing: overview'
+      theory_id: 9831
+    - title: Hash function
+      theory_id: 10878
+    - title: Hash table
+      theory_id: 13054
+    - title: The Map interface
+      theory_id: 3558
+    - title: Thread-safe maps
+      theory_id: 17081
     - title: Comparable
       theory_id: 14456
   2:
@@ -306,10 +348,6 @@ topics:
       theory_id: 10671
     - title: Absolute units
       theory_id: 10605
-    - title: Margin and Padding
-      theory_id: 8346
-    - title: Width and Height
-      theory_id: 8325
     - title: IoC Container
       theory_id: 16851
     - title: Spring beans
@@ -320,19 +358,31 @@ topics:
       theory_id: 14409
     - title: Using FreeMarker with Spring Boot
       theory_id: 13634
+    - title: Functional testing
+      theory_id: 13438
+    - title: Unit testing
+      theory_id: 7545
+    - title: Dependency injection
+      theory_id: 20580
+    - title: Margin and Padding
+      theory_id: 8346
+    - title: Width and Height
+      theory_id: 8325
     - title: Interfaces
       theory_id: 9640
   3:
-    - title: H2 database
-      theory_id: 8762
-    - title: The concept of patterns
-      theory_id: 3611
     - title: '@Bean vs @Component'
       theory_id: 14771
+    - title: ApplicationContext
+      theory_id: 22062
     - title: Scopes of beans
       theory_id: 19487
     - title: Bean lifecycle
       theory_id: 19550
+    - title: H2 database
+      theory_id: 8762
+    - title: The concept of patterns
+      theory_id: 3611
     - title: Introduction to Spring Data
       theory_id: 16299
     - title: CRUD repositories
@@ -343,16 +393,16 @@ topics:
       theory_id: 18135
     - title: JPA relationships
       theory_id: 17787
-    - title: Application layers
-      theory_id: 13971
     - title: Relational databases with Spring Data
       theory_id: 18086
+    - title: Application layers
+      theory_id: 13971
     - title: Introduction to databases
       theory_id: 8497
-    - title: What is SQL
-      theory_id: 7054
     - title: Relational Data Model
       theory_id: 13785
+    - title: What is SQL
+      theory_id: 7054
     - title: XML
       theory_id: 6901
     - title: Intro to MySQL
@@ -363,19 +413,7 @@ topics:
       theory_id: 8312
     - title: Introduction to PostgreSQL
       theory_id: 17974
-    - title: Lambda expressions
-      theory_id: 11635
-    - title: Method references
-      theory_id: 3620
-    - title: Functional interfaces
-      theory_id: 11636
-    - title: Standard functional interfaces
-      theory_id: 3623
-    - title: Optional
-      theory_id: 9699
     - title: Generic methods
       theory_id: 3606
-    - title: Anonymous classes
-      theory_id: 11896
-    - title: Default methods
-      theory_id: 11354
+    - title: Inner classes
+      theory_id: 11505

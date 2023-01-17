@@ -22,7 +22,7 @@ import static org.hyperskill.hstest.testing.expect.json.JsonChecker.isString;
 
 public class CodeSharingPlatformTest extends SpringTest {
     public CodeSharingPlatformTest() {
-        super(CodeSharingPlatform.class);
+        super(CodeSharingPlatform.class, "../snippets.mv.db");
     }
 
     final String API_CODE = "/api/code/";
@@ -35,20 +35,20 @@ public class CodeSharingPlatformTest extends SpringTest {
     final String WEB_LATEST = "/code/latest";
 
     final String[] SNIPPETS = {
-            "public static void ...",
-            "class Code { ...",
-            "Snippet #3",
-            "Snippet #4",
-            "Snippet #5",
-            "Snippet #6",
-            "Snippet #7",
-            "Snippet #8",
-            "Snippet #9",
-            "Snippet #10",
-            "Snippet #11",
-            "Snippet #12",
-            "Snippet #13",
-            "Snippet #14",
+        "public static void ...",
+        "class Code { ...",
+        "Snippet #3",
+        "Snippet #4",
+        "Snippet #5",
+        "Snippet #6",
+        "Snippet #7",
+        "Snippet #8",
+        "Snippet #9",
+        "Snippet #10",
+        "Snippet #11",
+        "Snippet #12",
+        "Snippet #13",
+        "Snippet #14",
     };
 
     final Map<Integer, String> ids = new HashMap<>();
@@ -69,11 +69,11 @@ public class CodeSharingPlatformTest extends SpringTest {
     static void checkStatusCode(HttpResponse resp, int status) {
         if (resp.getStatusCode() != status) {
             throw new WrongAnswer(
-                    resp.getRequest().getMethod() + " " +
-                            resp.getRequest().getLocalUri() +
-                            " should respond with status code " + status + ", " +
-                            "responded: " + resp.getStatusCode() + "\n\n" +
-                            "Response body:\n\n" + resp.getContent()
+                resp.getRequest().getMethod() + " " +
+                    resp.getRequest().getLocalUri() +
+                    " should respond with status code " + status + ", " +
+                    "responded: " + resp.getStatusCode() + "\n\n" +
+                    "Response body:\n\n" + resp.getContent()
             );
         }
     }
@@ -81,110 +81,147 @@ public class CodeSharingPlatformTest extends SpringTest {
     static void checkTitle(Document doc, String url, String title) {
         if (!doc.title().equals(title)) {
             throw new WrongAnswer("GET " + url +
-                    " should contain title \"" + title + "\"");
+                " should contain title \"" + title + "\"");
         }
     }
 
-    static Element getSingleTag(Document doc, String url, String tag) {
+    static Element getSingleTag(Element doc, String url, String tag) {
         Elements elems = getElemsByTag(doc, url, tag, 1);
         return elems.get(0);
     }
 
-    static Elements getElemsByTag(Document doc, String url, String tag, int length) {
+    static Elements getElemsByTag(Element doc, String url, String tag, int length) {
         Elements elems = doc.getElementsByTag(tag);
         if (elems.size() != length) {
             throw new WrongAnswer("GET " + url +
-                    " should contain " + length + " <" + tag + "> " +
-                    "element" + (length == 1 ? "" : "s") + ", found: " + elems.size());
+                " should contain " + length + " <" + tag + "> " +
+                "element"+ (length == 1 ? "" : "s") +", found: " + elems.size());
         }
         return elems;
     }
 
-    static Element getById(Document doc, String url, String id, String tag) {
+    static Element getById(Element doc, String url, String id, String tag) {
         Element elem = doc.getElementById(id);
 
         if (elem == null) {
             throw new WrongAnswer("GET " + url +
-                    " should contain an element with id \"" + id + "\", no one found");
+                " should contain an element with id \"" + id + "\", no one found");
         }
 
         if (!elem.tagName().equals(tag)) {
             throw new WrongAnswer("GET " + url +
-                    " should contain an element with id  \"" + id + "\" and tag \"" + tag + "\", " +
-                    "found another tag: \"" + elem.tagName() + "\"");
+                " should contain an element with id  \"" + id + "\" and tag \"" + tag + "\", " +
+                "found another tag: \"" + elem.tagName() + "\"");
         }
 
         return elem;
     }
 
     @DynamicTestingMethod
-    public DynamicTesting[] dt = new DynamicTesting[]{
-            // test 1
-            this::checkWebCodeNew,
+    public DynamicTesting[] dt = new DynamicTesting[] {
+        // test 1
+        this::checkWebCodeNew,
 
-            // test 2
-            () -> postSnippet(0),
-            () -> checkApiCode(0),
-            () -> checkWebCode(0),
-            () -> checkApiLatest(0),
-            () -> checkWebLatest(0),
+        // test 2
+        () -> postSnippet(0),
+        () -> checkApiCode(0),
+        () -> checkWebCode(0),
+        () -> checkApiLatest(0),
+        () -> checkWebLatest(0),
 
-            // test 7
-            () -> postSnippet(1),
-            () -> checkApiCode(0),
-            () -> checkWebCode(0),
-            () -> checkApiCode(1),
-            () -> checkWebCode(1),
-            () -> checkApiLatest(1, 0),
-            () -> checkWebLatest(1, 0),
+        // test 7
+        () -> postSnippet(1),
+        () -> checkApiCode(0),
+        () -> checkWebCode(0),
+        () -> checkApiCode(1),
+        () -> checkWebCode(1),
+        () -> checkApiLatest(1, 0),
+        () -> checkWebLatest(1, 0),
 
-            // test 14
-            () -> postSnippet(2),
-            () -> postSnippet(3),
-            () -> postSnippet(4),
-            () -> postSnippet(5),
-            () -> postSnippet(6),
-            () -> postSnippet(7),
-            () -> postSnippet(8),
-            () -> postSnippet(9),
-            () -> postSnippet(10),
-            () -> postSnippet(11),
-            () -> postSnippet(12),
-            () -> postSnippet(13),
+        // test 14
+        () -> postSnippet(2),
+        () -> postSnippet(3),
+        () -> postSnippet(4),
+        () -> postSnippet(5),
+        () -> postSnippet(6),
+        () -> postSnippet(7),
+        () -> postSnippet(8),
+        () -> postSnippet(9),
+        () -> postSnippet(10),
+        () -> postSnippet(11),
+        () -> postSnippet(12),
+        () -> postSnippet(13),
 
-            // test 26
-            () -> checkApiCode(0),
-            () -> checkWebCode(0),
-            () -> checkApiCode(1),
-            () -> checkWebCode(1),
-            () -> checkApiCode(2),
-            () -> checkWebCode(2),
-            () -> checkApiCode(3),
-            () -> checkWebCode(3),
-            () -> checkApiCode(4),
-            () -> checkWebCode(4),
-            () -> checkApiCode(5),
-            () -> checkWebCode(5),
-            () -> checkApiCode(6),
-            () -> checkWebCode(6),
-            () -> checkApiCode(7),
-            () -> checkWebCode(7),
-            () -> checkApiCode(8),
-            () -> checkWebCode(8),
-            () -> checkApiCode(9),
-            () -> checkWebCode(9),
-            () -> checkApiCode(10),
-            () -> checkWebCode(10),
-            () -> checkApiCode(11),
-            () -> checkWebCode(11),
-            () -> checkApiCode(12),
-            () -> checkWebCode(12),
-            () -> checkApiCode(13),
-            () -> checkWebCode(13),
+        // test 26
+        () -> checkApiCode(0),
+        () -> checkWebCode(0),
+        () -> checkApiCode(1),
+        () -> checkWebCode(1),
+        () -> checkApiCode(2),
+        () -> checkWebCode(2),
+        () -> checkApiCode(3),
+        () -> checkWebCode(3),
+        () -> checkApiCode(4),
+        () -> checkWebCode(4),
+        () -> checkApiCode(5),
+        () -> checkWebCode(5),
+        () -> checkApiCode(6),
+        () -> checkWebCode(6),
+        () -> checkApiCode(7),
+        () -> checkWebCode(7),
+        () -> checkApiCode(8),
+        () -> checkWebCode(8),
+        () -> checkApiCode(9),
+        () -> checkWebCode(9),
+        () -> checkApiCode(10),
+        () -> checkWebCode(10),
+        () -> checkApiCode(11),
+        () -> checkWebCode(11),
+        () -> checkApiCode(12),
+        () -> checkWebCode(12),
+        () -> checkApiCode(13),
+        () -> checkWebCode(13),
 
-            // test 54
-            () -> checkApiLatest(13, 12, 11, 10, 9, 8, 7, 6, 5, 4),
-            () -> checkWebLatest(13, 12, 11, 10, 9, 8, 7, 6, 5, 4),
+        // test 54
+        () -> checkApiLatest(13, 12, 11, 10, 9, 8, 7, 6, 5, 4),
+        () -> checkWebLatest(13, 12, 11, 10, 9, 8, 7, 6, 5, 4),
+
+        // test 56
+        this::reloadServer,
+
+        // test 57
+        () -> checkApiCode(0),
+        () -> checkWebCode(0),
+        () -> checkApiCode(1),
+        () -> checkWebCode(1),
+        () -> checkApiCode(2),
+        () -> checkWebCode(2),
+        () -> checkApiCode(3),
+        () -> checkWebCode(3),
+        () -> checkApiCode(4),
+        () -> checkWebCode(4),
+        () -> checkApiCode(5),
+        () -> checkWebCode(5),
+        () -> checkApiCode(6),
+        () -> checkWebCode(6),
+        () -> checkApiCode(7),
+        () -> checkWebCode(7),
+        () -> checkApiCode(8),
+        () -> checkWebCode(8),
+        () -> checkApiCode(9),
+        () -> checkWebCode(9),
+        () -> checkApiCode(10),
+        () -> checkWebCode(10),
+        () -> checkApiCode(11),
+        () -> checkWebCode(11),
+        () -> checkApiCode(12),
+        () -> checkWebCode(12),
+        () -> checkApiCode(13),
+        () -> checkWebCode(13),
+
+        // test 85
+        () -> checkApiLatest(13, 12, 11, 10, 9, 8, 7, 6, 5, 4),
+        () -> checkWebLatest(13, 12, 11, 10, 9, 8, 7, 6, 5, 4),
     };
 
     private CheckResult checkApiCode(int id) {
@@ -195,15 +232,15 @@ public class CodeSharingPlatformTest extends SpringTest {
         checkStatusCode(resp, 200);
 
         expect(resp.getContent()).asJson().check(
-                isObject()
-                        .value("code", snippet)
-                        .value("date", isString(s -> {
-                            if (dates.containsKey(id)) {
-                                return s.equals(dates.get(id));
-                            }
-                            dates.put(id, s);
-                            return true;
-                        }))
+            isObject()
+                .value("code", snippet)
+                .value("date", isString(s -> {
+                    if (dates.containsKey(id)) {
+                        return s.equals(dates.get(id));
+                    }
+                    dates.put(id, s);
+                    return true;
+                }))
         );
 
         return CheckResult.correct();
@@ -224,17 +261,25 @@ public class CodeSharingPlatformTest extends SpringTest {
         checkTitle(doc, req, "Code");
 
         Element pre = getById(doc, req, "code_snippet", "pre");
-        String webSnippetCode = pre.text();
+        Element code = getSingleTag(pre, req, "code");
+
+        String webSnippetCode = code.text();
         if (!webSnippetCode.trim().equals(apiSnippet.trim())) {
             return CheckResult.wrong("Web code snippet " +
-                    "and api code snippet are different");
+                "and api code snippet are different");
         }
 
         Element date = getById(doc, req, "load_date", "span");
         String webSnippetDate = date.text();
         if (!webSnippetDate.trim().equals(apiDate.trim())) {
             return CheckResult.wrong("Web snippet date " +
-                    "and api snippet date are different");
+                "and api snippet date are different");
+        }
+
+        if (!html.contains("hljs.initHighlightingOnLoad()")) {
+            return CheckResult.wrong(
+                "Can't determine if code highlighting works or not.\n" +
+                "Use \"hljs.initHighlightingOnLoad()\" inside the script tags in the HTML page.");
         }
 
         return CheckResult.correct();
@@ -262,16 +307,16 @@ public class CodeSharingPlatformTest extends SpringTest {
         checkStatusCode(resp, 200);
 
         expect(resp.getContent()).asJson().check(
-                isObject()
-                        .value("id", isString(i -> {
-                            try {
-                                Integer.parseInt(i);
-                            } catch (NumberFormatException ex) {
-                                return false;
-                            }
-                            ids.put(id, "" + i);
-                            return true;
-                        }))
+            isObject()
+                .value("id", isString(i -> {
+                    try {
+                        Integer.parseInt(i);
+                    } catch (NumberFormatException ex) {
+                        return false;
+                    }
+                    ids.put(id, "" + i);
+                    return true;
+                }))
         );
 
         return CheckResult.correct();
@@ -283,10 +328,10 @@ public class CodeSharingPlatformTest extends SpringTest {
         checkStatusCode(resp, 200);
 
         expect(resp.getContent()).asJson().check(
-                isArray(ids.length, isObject()
-                        .value("code", isString())
-                        .value("date", isString())
-                )
+            isArray(ids.length, isObject()
+                .value("code", isString())
+                .value("date", isString())
+            )
         );
 
         JsonArray elem = resp.getJson().getAsJsonArray();
@@ -301,16 +346,16 @@ public class CodeSharingPlatformTest extends SpringTest {
 
             if (!actualSnippet.equals(givenSnippet)) {
                 return CheckResult.wrong("GET " + req + " " + th(i + 1) +
-                        " snippet doesn't match actual snippet.\n" +
-                        "Expected:\n" + actualSnippet + "\n" +
-                        "Found:\n" + givenSnippet);
+                    " snippet doesn't match actual snippet.\n" +
+                    "Expected:\n" + actualSnippet + "\n" +
+                    "Found:\n" + givenSnippet);
             }
 
             if (!actualDate.equals(givenDate)) {
                 return CheckResult.wrong("GET " + req + " " + th(i + 1) +
-                        " snippet's date doesn't match actual snippet's date.\n" +
-                        "Expected:\n" + actualDate + "\n" +
-                        "Found:\n" + givenDate);
+                    " snippet's date doesn't match actual snippet's date.\n" +
+                    "Expected:\n" + actualDate + "\n" +
+                    "Found:\n" + givenDate);
             }
         }
 
@@ -338,22 +383,31 @@ public class CodeSharingPlatformTest extends SpringTest {
             String webSnippetCode = pre.text();
             if (!webSnippetCode.trim().equals(apiSnippet.trim())) {
                 return CheckResult.wrong("GET " + req + " " + th(i + 1)
-                        + " snippet doesn't match " + th(i + 1) + " snippet via api.\n" +
-                        "Expected:\n" + apiSnippet + "\n" +
-                        "Found:\n" + webSnippetCode);
+                    + " snippet doesn't match " + th(i + 1) + " snippet via api.\n" +
+                    "Expected:\n" + apiSnippet + "\n" +
+                    "Found:\n" + webSnippetCode);
             }
 
             Element date = spanList.get(i);
             String webSnippetDate = date.text();
             if (!webSnippetDate.trim().equals(apiDate.trim())) {
                 return CheckResult.wrong("GET " + req + " " + th(i + 1)
-                        + " snippet's date doesn't match " + th(i + 1)
-                        + " snippet's date via api.\n" +
-                        "Expected:\n" + apiDate + "\n" +
-                        "Found:\n" + webSnippetDate);
+                    + " snippet's date doesn't match " + th(i + 1)
+                    + " snippet's date via api.\n" +
+                    "Expected:\n" + apiDate + "\n" +
+                    "Found:\n" + webSnippetDate);
             }
         }
 
+        return CheckResult.correct();
+    }
+
+    private CheckResult reloadServer() {
+        try {
+            reloadSpring();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
         return CheckResult.correct();
     }
 }

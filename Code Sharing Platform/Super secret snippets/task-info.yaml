@@ -130,6 +130,7 @@ files:
           final Map<Integer, String> dates = new HashMap<>();
           final Map<Integer, Integer> secs = new HashMap<>();
           final Map<Integer, Integer> views = new HashMap<>();
+          final Map<Integer, Long> creationTime = new HashMap<>();
       
           boolean checkSecret = false;
           long freezeTime = 0;
@@ -354,13 +355,13 @@ files:
       
               // test 105
               () -> checkApiCode(15),
-              () -> checkWebCode(15),
-              () -> checkApiCode(17),
-              () -> checkWebCode(17),
-              () -> checkApiCode404(19),
-              () -> checkWebCode404(19),
-              () -> checkApiCode(21),
-              () -> checkWebCode(21),
+              () -> checkWebCode(15), //106
+              () -> checkApiCode(17), //107
+              () -> checkWebCode(17), //108
+              () -> checkApiCode404(19), //109
+              () -> checkWebCode404(19), //110
+              () -> checkApiCode(21), //111
+              () -> checkWebCode(21), //112
       
               // test 113
               () -> checkApiLatest(20, 18, 16, 14, 13, 12, 11, 10, 9, 8),
@@ -369,7 +370,7 @@ files:
               // test 115
               () -> checkApiCode(17),
               () -> checkApiCode(17),
-              () -> checkWebCode(17),
+              () -> checkWebCode(17), //117
               () -> checkApiCode404(17),
               () -> checkWebCode404(17),
           };
@@ -381,7 +382,21 @@ files:
               int views = this.views.get(id);
       
               HttpResponse resp = get(API_CODE + codeId).send();
-              checkStatusCode(resp, 200);
+              int elapsedTime = (int) (System.currentTimeMillis() - creationTime.get(id)) / 1000;
+      
+              // If execution is slow, response could rightfully be 404
+              if (time > 0) {
+                  if (elapsedTime < time){
+                      checkStatusCode(resp, 200);
+                  } else {
+                      checkStatusCode(resp, 404);
+                      //System.out.println("404 with valid timeout");
+                      return CheckResult.correct();
+                  }
+              } else {
+                  checkStatusCode(resp, 200);
+              }
+      
       
               expect(resp.getContent()).asJson().check(
                   isObject()
@@ -397,8 +412,15 @@ files:
                           if (!checkSecret || time == 0) {
                               return i == 0;
                           }
-                          int upperBound = (int) (time - sleepLowerBound);
-                          int lowerBound = (int) (time - sleepUpperBound);
+      
+                          //int upperBound = (int) (time - sleepLowerBound);
+                          //int lowerBound = (int) (time - sleepUpperBound);
+      
+                          int targetTime = time - elapsedTime; // Time which should be remaining on the clock
+                          final int toleranceSeconds = 3;
+                          int lowerBound = targetTime - toleranceSeconds;
+                          int upperBound = targetTime + toleranceSeconds;
+      
                           return i >= lowerBound && i <= upperBound;
                       }))
                       .value("views", isInteger(i -> {
@@ -430,7 +452,20 @@ files:
       
               String req = WEB_CODE + codeId;
               HttpResponse resp = get(req).send();
-              checkStatusCode(resp, 200);
+              int elapsedTime = (int) (System.currentTimeMillis() - creationTime.get(id)) / 1000;
+      
+              // If execution is slow, response could rightfully be 404
+              if (time > 0) {
+                  if (elapsedTime < time){
+                      checkStatusCode(resp, 200);
+                  } else {
+                      checkStatusCode(resp, 404);
+                      //System.out.println("404 with valid timeout");
+                      return CheckResult.correct();
+                  }
+              } else {
+                  checkStatusCode(resp, 200);
+              }
       
               String html = resp.getContent();
               Document doc = Jsoup.parse(html);
@@ -465,8 +500,13 @@ files:
                           "Full text:\n" + timeSpan
                       );
                   }
-                  int upperBound = (int) (time - sleepLowerBound);
-                  int lowerBound = (int) (time - sleepUpperBound);
+                  //int upperBound = (int) (time - sleepLowerBound);
+                  //int lowerBound = (int) (time - sleepUpperBound);
+      
+                  int targetTime = time - elapsedTime; // Time which should be remaining on the clock
+                  final int toleranceSeconds = 3;
+                  int lowerBound = targetTime - toleranceSeconds;
+                  int upperBound = targetTime + toleranceSeconds;
       
                   if (!(timeOnPage >= lowerBound && timeOnPage <= upperBound)) {
                       return CheckResult.wrong("GET " + req + " should " +
@@ -531,6 +571,9 @@ files:
                   "{\"code\":\"" + snippet + "\", " +
                       "\"time\": " + secs +", " +
                       "\"views\": " + views + "}").send();
+      
+              creationTime.put(id, System.currentTimeMillis());
+      
               checkStatusCode(resp, 200);
       
               expect(resp.getContent()).asJson().check(

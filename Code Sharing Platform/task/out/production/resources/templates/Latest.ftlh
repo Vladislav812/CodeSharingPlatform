@@ -7,6 +7,7 @@
 <body>
 <#list latestList_ as record>
     <span id="load_date">${record["date"]}</span>
+    <br>
     <pre id="code_snippet">${record["code"]}</pre>
     <br>
 </#list>

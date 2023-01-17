@@ -474,6 +474,146 @@ files:
           }
       }
     learner_created: false
+  - name: src/resources/templates/Create.ftlh
+    visible: true
+    text: |-
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <title>Create</title>
+      </head>
+      <body>
+      <textarea id="code_snippet">
+      </textarea>
+      <button id="send_snippet" type="submit" onclick="send()">Submit</button>
+      <script>
+          function send() {
+              let object = {
+                  "code": document.getElementById("code_snippet").value
+              };
+              let json = JSON.stringify(object);
+              let xhr = new XMLHttpRequest();
+              xhr.open("POST", '/api/code/new', false)
+              xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+              xhr.send(json);
+              if (xhr.status == 200) {
+                  alert("Success!");
+              }
+          }
+      </script>
+      </body>
+      </html>
+    learner_created: true
+  - name: src/resources/templates/Latest.ftlh
+    visible: true
+    text: |-
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <title>Latest</title>
+          <link rel="stylesheet" href="/css/styles.css" type="text/css"/>
+      <body>
+      <#list latestList_ as record>
+          <span id="load_date">${record["date"]}</span>
+          <br>
+          <pre id="code_snippet">${record["code"]}</pre>
+          <br>
+      </#list>
+      </body>
+      </html>
+    learner_created: true
+  - name: src/platform/ActualDate.java
+    visible: true
+    text: |
+      package platform;
+      
+      import java.time.LocalDateTime;
+      import java.time.format.DateTimeFormatter;
+      
+      public class ActualDate {
+          private String actDate;
+      
+          ActualDate() {
+              String DATE_FORMATTER = "yyyy/MM/dd HH:mm:ss";
+              LocalDateTime ldt = LocalDateTime.now();
+              DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
+              this.actDate = ldt.format(formatter);
+          }
+      
+          public String getActDate() {
+              return actDate;
+          }
+      }
+    learner_created: true
+  - name: src/resources/templates/Code.ftlh
+    visible: true
+    text: |-
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <title>Code</title>
+          <link rel="stylesheet" href="/css/styles.css">
+      </head>
+      <body>
+      <span id="load_date">${snippet["date"]}</span>
+      <br>
+      <pre id="code_snippet">${snippet["code"]}</pre>
+      </body>
+      </html>
+    learner_created: true
+  - name: src/platform/HTML_Controller.java
+    visible: true
+    text: |
+      package platform;
+      
+      import org.springframework.stereotype.Controller;
+      import org.springframework.ui.Model;
+      import org.springframework.web.bind.annotation.GetMapping;
+      import org.springframework.web.bind.annotation.PathVariable;
+      
+      import java.util.HashMap;
+      import java.util.List;
+      
+      @Controller
+      public class HTML_Controller {
+      
+          @GetMapping("/code/{num}")
+          public String getHTMLCode(Model model, @PathVariable int num) {
+              HashMap<String, String> hm = CodeSharingPlatform.returnCode(num);
+              model.addAttribute("snippet", hm);
+              return "Code";
+          }
+      
+          @GetMapping("code/new")
+          public String returnHTML() {
+              return "Create";
+          }
+      
+          @GetMapping("code/latest")
+          public String returnLatestHTML(Model model) {
+              List<HashMap<String, String>> latestList = CodeSharingPlatform.returnLatest();
+              model.addAttribute("latestList_", latestList);
+              return "Latest";
+          }
+      
+      }
+    learner_created: true
+  - name: src/resources/static/css/styles.css
+    visible: true
+    text: |-
+      #load_date {
+          color: green
+      }
+      
+      #code_snippet {
+          background-color: lightgray;
+          border: thin solid black;
+          display: inline-block
+      }
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/11030#comment
 status: Unchecked
 record: -1
